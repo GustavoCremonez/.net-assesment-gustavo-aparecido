@@ -1,8 +1,6 @@
 ﻿using DotNETAssesmentGA.Domain.Entities;
 using DotNETAssesmentGA.Domain.Validation;
 using FluentAssertions;
-using System.Diagnostics;
-using System.Xml.Linq;
 
 namespace DotNETAssesmentGA.Tests.Domain
 {
