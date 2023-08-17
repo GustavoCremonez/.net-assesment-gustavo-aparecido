@@ -26,14 +26,16 @@ namespace DotNETAssesmentGA.Infra.Data.Repositories
             if (entity != null)
                 return entity;
 
-            throw new ApplicationException("Não foi encontrado o produto desejado, tente novamente!");
+            throw new ApplicationException("Product not found, Try again!");
         }
 
-        public async Task AddAsync(Product entity)
+        public async Task<Product> AddAsync(Product entity)
         {
-            _contextRepository.Add(entity);
+            Product registeredEntity = _contextRepository.Add(entity).Entity;
 
             await _contextRepository.SaveChangesAsync();
+
+            return registeredEntity;
         }
 
         public async Task RemoveAsync(Product entity)
@@ -43,11 +45,13 @@ namespace DotNETAssesmentGA.Infra.Data.Repositories
             await _contextRepository.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(Product entity)
+        public async Task<Product> UpdateAsync(Product entity)
         {
-            _contextRepository.Update(entity);
+            Product updatedEntity = _contextRepository.Update(entity).Entity;
 
             await _contextRepository.SaveChangesAsync();
+
+            return updatedEntity;
         }
     }
 }

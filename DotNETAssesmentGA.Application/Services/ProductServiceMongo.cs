@@ -10,11 +10,13 @@ namespace DotNETAssesmentGA.Application.Services
     {
         private readonly IProductMongoRepository _productRepository;
         private readonly IMapper _mapper;
+        private readonly IMessengerSender _messengerSender;
 
-        public ProductServiceMongo(IProductMongoRepository productRepository, IMapper mapper)
+        public ProductServiceMongo(IProductMongoRepository productRepository, IMapper mapper, IMessengerSender messengerSender)
         {
             _productRepository = productRepository;
             _mapper = mapper;
+            _messengerSender = messengerSender;
         }
 
         public async Task<IEnumerable<ProductDTO>> GetAllAsync()
@@ -37,7 +39,10 @@ namespace DotNETAssesmentGA.Application.Services
 
             entity._Id = "";
 
-            await _productRepository.AddAsync(entity);
+            Product result = await _productRepository.AddAsync(entity);
+
+            ProductDTO dtoResult = _mapper.Map<ProductDTO>(result);
+            _messengerSender.QueueMessage(dtoResult);
         }
 
         public async Task RemoveAsync(string id)

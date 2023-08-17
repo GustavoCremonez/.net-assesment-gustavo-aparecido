@@ -8,7 +8,7 @@ namespace DotNETAssesmentGA.Application.DTOs
     {
         public int Id { get; set; }
 
-        public string _Id { get; set; }
+        public string? _Id { get; set; }
 
         [Required(ErrorMessage = "The Name is Required")]
         [DisplayName("Name")]

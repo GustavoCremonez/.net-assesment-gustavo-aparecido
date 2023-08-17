@@ -8,9 +8,9 @@ namespace DotNETAssesmentGA.Domain.Interfaces
 
         Task<IEnumerable<Product>> GetAllAsync();
 
-        Task AddAsync(Product entity);
+        Task<Product> AddAsync(Product entity);
 
-        Task UpdateAsync(Product entity);
+        Task<Product> UpdateAsync(Product entity);
 
         Task RemoveAsync(Product entity);
     }

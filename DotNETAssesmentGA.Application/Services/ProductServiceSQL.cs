@@ -10,11 +10,13 @@ namespace DotNETAssesmentGA.Application.Services
     {
         private readonly IProductSQLRepository _productSQLRepository;
         private readonly IMapper _mapper;
+        private readonly IMessengerSender _messengerSender;
 
-        public ProductServiceSQL(IProductSQLRepository productSQLRepository, IMapper mapper)
+        public ProductServiceSQL(IProductSQLRepository productSQLRepository, IMapper mapper, IMessengerSender messengerSender)
         {
             _productSQLRepository = productSQLRepository;
             _mapper = mapper;
+            _messengerSender = messengerSender;
         }
 
         public async Task<IEnumerable<ProductDTO>> GetAllAsync()
@@ -34,10 +36,12 @@ namespace DotNETAssesmentGA.Application.Services
         public async Task AddAsync(ProductDTO dto)
         {
             Product entity = _mapper.Map<Product>(dto);
-
             entity._Id = "";
 
-            await _productSQLRepository.AddAsync(entity);
+            Product result = await _productSQLRepository.AddAsync(entity);
+
+            ProductDTO dtoResult = _mapper.Map<ProductDTO>(result);
+            _messengerSender.QueueMessage(dtoResult);
         }
 
         public async Task RemoveAsync(int id)

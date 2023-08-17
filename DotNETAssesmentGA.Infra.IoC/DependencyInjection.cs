@@ -38,6 +38,7 @@ namespace DotNETAssesmentGA.Infra.IoC
             services.AddScoped<IProductSQLRepository, ProductoSQLRepository>();
             services.AddScoped<IProductServiceMongo, ProductServiceMongo>();
             services.AddScoped<IProductServiceSQL, ProductServiceSQL>();
+            services.AddScoped<IMessengerSender, MessengerSender>();
 
             return services;
         }

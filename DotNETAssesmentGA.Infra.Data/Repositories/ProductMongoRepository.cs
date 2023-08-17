@@ -23,12 +23,19 @@ namespace DotNETAssesmentGA.Infra.Data.Repositories
 
         public async Task<Product> GetByIdAsync(string id)
         {
-            return await _productColletion.Find(prod => prod._Id == id).FirstOrDefaultAsync();
+            Product? entity = await _productColletion.Find(prod => prod._Id == id).FirstOrDefaultAsync();
+
+            if (entity != null)
+                return entity;
+
+            throw new ApplicationException("Product not found, Try again!");
         }
 
-        public async Task AddAsync(Product entity)
+        public async Task<Product> AddAsync(Product entity)
         {
             await _productColletion.InsertOneAsync(entity);
+
+            return entity;
         }
 
         public async Task RemoveAsync(string id)
@@ -36,9 +43,11 @@ namespace DotNETAssesmentGA.Infra.Data.Repositories
             await _productColletion.DeleteOneAsync(prod => prod._Id == id);
         }
 
-        public async Task UpdateAsync(Product entity)
+        public async Task<Product> UpdateAsync(Product entity)
         {
             await _productColletion.ReplaceOneAsync(prod => prod._Id == entity._Id, entity);
+
+            return entity;
         }
     }
 }
