@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DotNETAssesmentGA.Application\DotNETAssesmentGA.Application.csproj" />
     <ProjectReference Include="..\DotNETAssesmentGA.Domain\DotNETAssesmentGA.Domain.csproj" />
+    <ProjectReference Include="..\DotNETAssesmentGA.Infra.Data\DotNETAssesmentGA.Infra.Data.csproj" />
   </ItemGroup>
 
 </Project>

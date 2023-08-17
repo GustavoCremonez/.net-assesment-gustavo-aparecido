@@ -6,8 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DotNETAssesmentGA.Domain\DotNETAssesmentGA.Domain.csproj" />
-  </ItemGroup>
-
 </Project>
