@@ -2,15 +2,15 @@
 
 namespace DotNETAssesmentGA.Domain.Interfaces
 {
-    public interface IProductRepository
+    public interface IProductSQLRepository
     {
-        Task<Product> GetByIdAsync();
+        Task<Product> GetByIdAsync(int id);
 
         Task<IEnumerable<Product>> GetAllAsync();
 
-        Task<Product> AddAsync(Product entity);
+        Task AddAsync(Product entity);
 
-        Task<Product> UpdateAsync(Product entity);
+        Task UpdateAsync(Product entity);
 
         Task RemoveAsync(Product entity);
     }

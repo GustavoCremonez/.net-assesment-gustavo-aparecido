@@ -2,6 +2,7 @@
 using DotNETAssesmentGA.Domain.Interfaces;
 using DotNETAssesmentGA.Infra.Data;
 using DotNETAssesmentGA.Infra.Data.Contexts;
+using DotNETAssesmentGA.Infra.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,6 +35,8 @@ namespace DotNETAssesmentGA.Infra.IoC
 
             services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
             services.AddSingleton<IMongoDatabaseConfiguration>(opt => opt.GetRequiredService<IOptions<MongoDatabaseConfiguration>>().Value);
+            services.AddScoped<IProductMongoRepository, ProductMongoRepository>();
+            services.AddScoped<IProductSQLRepository, ProductoSQLRepository>();
 
             return services;
         }

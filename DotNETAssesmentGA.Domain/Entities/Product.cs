@@ -1,4 +1,6 @@
 ﻿using DotNETAssesmentGA.Domain.Validation;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace DotNETAssesmentGA.Domain.Entities
 {
@@ -15,10 +17,17 @@ namespace DotNETAssesmentGA.Domain.Entities
 
         public int Id { get; private set; }
 
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string _Id { get; set; }
+
+        [BsonElement("Name")]
         public string Name { get; private set; }
 
+        [BsonElement("Description")]
         public string Description { get; private set; }
 
+        [BsonElement("Price")]
         public decimal Price { get; private set; }
 
         public void Update(string name, string description, decimal price)
