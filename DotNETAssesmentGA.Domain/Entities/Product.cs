@@ -13,13 +13,13 @@ namespace DotNETAssesmentGA.Domain.Entities
             Price = price;
         }
 
-        public int Id { get; set; }
+        public int Id { get; private set; }
 
-        public string Name { get; set; }
+        public string Name { get; private set; }
 
-        public string Description { get; set; }
+        public string Description { get; private set; }
 
-        public decimal Price { get; set; }
+        public decimal Price { get; private set; }
 
         public void Update(string name, string description, decimal price)
         {
