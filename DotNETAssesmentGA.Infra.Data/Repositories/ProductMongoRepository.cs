@@ -36,9 +36,9 @@ namespace DotNETAssesmentGA.Infra.Data.Repositories
             await _productColletion.DeleteOneAsync(prod => prod._Id == id);
         }
 
-        public async Task UpdateAsync(string id, Product entity)
+        public async Task UpdateAsync(Product entity)
         {
-            await _productColletion.ReplaceOneAsync(prod => prod._Id == id, entity);
+            await _productColletion.ReplaceOneAsync(prod => prod._Id == entity._Id, entity);
         }
     }
 }

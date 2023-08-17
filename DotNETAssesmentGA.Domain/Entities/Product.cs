@@ -10,6 +10,7 @@ namespace DotNETAssesmentGA.Domain.Entities
         {
             this.ValidateEntity(name, description, price);
 
+            _Id = "";
             Name = name;
             Description = description;
             Price = price;

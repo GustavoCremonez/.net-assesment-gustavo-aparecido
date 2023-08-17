@@ -10,7 +10,7 @@ namespace DotNETAssesmentGA.Domain.Interfaces
 
         Task AddAsync(Product entity);
 
-        Task UpdateAsync(string id, Product entity);
+        Task UpdateAsync(Product entity);
 
         Task RemoveAsync(string id);
     }

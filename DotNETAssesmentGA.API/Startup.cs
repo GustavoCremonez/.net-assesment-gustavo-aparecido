@@ -1,4 +1,7 @@
 ﻿using DotNETAssesmentGA.Infra.IoC;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace DotNETAssesmentGA.API
 {
@@ -13,10 +16,29 @@ namespace DotNETAssesmentGA.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddApiVersioning(setup =>
+            {
+                setup.DefaultApiVersion = new ApiVersion(1, 2);
+                setup.AssumeDefaultVersionWhenUnspecified = true;
+                setup.ReportApiVersions = true;
+            });
+
+            services.AddVersionedApiExplorer(setup =>
+            {
+                setup.GroupNameFormat = "'v'VVV";
+                setup.SubstituteApiVersionInUrl = true;
+            });
+
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+
+            services.AddSwaggerGen(options =>
+            {
+                options.OperationFilter<SwaggerDefaultValues>();
+            });
+
             services.AddInfrastructure(Configuration);
             services.AddControllers();
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

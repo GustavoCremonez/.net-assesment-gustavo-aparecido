@@ -2,12 +2,6 @@
 using DotNETAssesmentGA.Domain.Interfaces;
 using DotNETAssesmentGA.Infra.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
-using SharpCompress.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DotNETAssesmentGA.Infra.Data.Repositories
 {
@@ -27,7 +21,7 @@ namespace DotNETAssesmentGA.Infra.Data.Repositories
 
         public async Task<Product> GetByIdAsync(int id)
         {
-            var entity = await _contextRepository.Products.FirstOrDefaultAsync();
+            Product? entity = await _contextRepository.Products.FirstOrDefaultAsync(prod => prod.Id == id);
 
             if (entity != null)
                 return entity;
