@@ -8,9 +8,9 @@ namespace DotNETAssesmentGA.Application.Interfaces
 
         Task<IEnumerable<ProductDTO>> GetAllAsync();
 
-        Task AddAsync(ProductDTO dto);
+        Task<ProductDTO> AddAsync(ProductDTO dto);
 
-        Task UpdateAsync(ProductDTO dto);
+        Task<ProductDTO> UpdateAsync(ProductDTO dto);
 
         Task RemoveAsync(int id);
     }

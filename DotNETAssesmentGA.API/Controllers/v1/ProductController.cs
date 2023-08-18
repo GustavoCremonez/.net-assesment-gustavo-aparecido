@@ -25,7 +25,6 @@ namespace DotNETAssesmentGA.API.Controllers.v1
                 IEnumerable<ProductDTO> products = await _sqlService.GetAllAsync();
 
                 if (products.Count() > 0) return Ok(products);
-
                 else return NoContent();
             }
             catch (Exception ex)
@@ -56,9 +55,7 @@ namespace DotNETAssesmentGA.API.Controllers.v1
         {
             try
             {
-                await _sqlService.AddAsync(dto);
-
-                return NoContent();
+                return Ok(await _sqlService.AddAsync(dto));
             }
             catch (Exception ex)
             {
@@ -72,9 +69,7 @@ namespace DotNETAssesmentGA.API.Controllers.v1
         {
             try
             {
-                await _sqlService.UpdateAsync(dto);
-
-                return NoContent();
+                return Ok(await _sqlService.UpdateAsync(dto));
             }
             catch (Exception ex)
             {

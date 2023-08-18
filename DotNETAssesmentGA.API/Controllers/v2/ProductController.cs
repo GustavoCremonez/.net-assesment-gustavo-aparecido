@@ -17,7 +17,6 @@ namespace DotNETAssesmentGA.API.Controllers.v2
         }
 
         [MapToApiVersion("2.0")]
-
         [HttpGet("GetAll")]
         public async Task<IActionResult> Get()
         {
@@ -27,7 +26,6 @@ namespace DotNETAssesmentGA.API.Controllers.v2
 
                 if (products.Count() > 0) return Ok(products);
                 else return NoContent();
-
             }
             catch (Exception ex)
             {
@@ -57,9 +55,7 @@ namespace DotNETAssesmentGA.API.Controllers.v2
         {
             try
             {
-                await _mongoService.AddAsync(dto);
-
-                return NoContent();
+                return Ok(await _mongoService.AddAsync(dto));
             }
             catch (Exception ex)
             {
@@ -73,9 +69,7 @@ namespace DotNETAssesmentGA.API.Controllers.v2
         {
             try
             {
-                await _mongoService.UpdateAsync(dto);
-
-                return NoContent();
+                return Ok(await _mongoService.UpdateAsync(dto));
             }
             catch (Exception ex)
             {

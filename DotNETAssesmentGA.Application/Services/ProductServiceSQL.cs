@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DotNETAssesmentGA.Application.DTOs;
 using DotNETAssesmentGA.Application.Interfaces;
+using DotNETAssesmentGA.Application.Mappings;
 using DotNETAssesmentGA.Domain.Entities;
 using DotNETAssesmentGA.Domain.Interfaces;
 
@@ -9,14 +10,17 @@ namespace DotNETAssesmentGA.Application.Services
     public class ProductServiceSQL : IProductServiceSQL
     {
         private readonly IProductSQLRepository _productSQLRepository;
-        private readonly IMapper _mapper;
         private readonly IMessengerSender _messengerSender;
+        private readonly Mapper _mapper;
 
-        public ProductServiceSQL(IProductSQLRepository productSQLRepository, IMapper mapper, IMessengerSender messengerSender)
+        public ProductServiceSQL(IProductSQLRepository productSQLRepository, IMessengerSender messengerSender)
         {
             _productSQLRepository = productSQLRepository;
-            _mapper = mapper;
             _messengerSender = messengerSender;
+
+            DomainToDTOMappingProfile mapperProfile = new DomainToDTOMappingProfile();
+            MapperConfiguration mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile(mapperProfile));
+            _mapper = new Mapper(mapperConfiguration);
         }
 
         public async Task<IEnumerable<ProductDTO>> GetAllAsync()
@@ -33,15 +37,19 @@ namespace DotNETAssesmentGA.Application.Services
             return _mapper.Map<ProductDTO>(entity);
         }
 
-        public async Task AddAsync(ProductDTO dto)
+        public async Task<ProductDTO> AddAsync(ProductDTO dto)
         {
+            dto.Id = 0;
+            dto._Id = "";
+
             Product entity = _mapper.Map<Product>(dto);
-            entity._Id = "";
 
             Product result = await _productSQLRepository.AddAsync(entity);
 
             ProductDTO dtoResult = _mapper.Map<ProductDTO>(result);
             _messengerSender.QueueMessage(dtoResult);
+
+            return dtoResult;
         }
 
         public async Task RemoveAsync(int id)
@@ -51,11 +59,15 @@ namespace DotNETAssesmentGA.Application.Services
             await _productSQLRepository.RemoveAsync(entity);
         }
 
-        public async Task UpdateAsync(ProductDTO dto)
+        public async Task<ProductDTO> UpdateAsync(ProductDTO dto)
         {
-            Product entitie = _mapper.Map<Product>(dto);
+            Product entity = _mapper.Map<Product>(dto);
 
-            await _productSQLRepository.UpdateAsync(entitie);
+            Product result = await _productSQLRepository.AddAsync(entity);
+
+            ProductDTO dtoResult = _mapper.Map<ProductDTO>(result);
+
+            return dtoResult;
         }
     }
 }
