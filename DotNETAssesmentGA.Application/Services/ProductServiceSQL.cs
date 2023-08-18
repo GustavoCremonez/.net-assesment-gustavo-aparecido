@@ -63,7 +63,7 @@ namespace DotNETAssesmentGA.Application.Services
         {
             Product entity = _mapper.Map<Product>(dto);
 
-            Product result = await _productSQLRepository.AddAsync(entity);
+            Product result = await _productSQLRepository.UpdateAsync(entity);
 
             ProductDTO dtoResult = _mapper.Map<ProductDTO>(result);
 
